@@ -1,4 +1,4 @@
-/* Full-screen dark background */
+/* Full-screen dark background with mountain image */
 body {
     margin: 0;
     padding: 0;
@@ -7,39 +7,97 @@ body {
     justify-content: center;
     align-items: center;
     font-family: 'Arial', sans-serif;
-    color: white;
-    overflow: hidden;
     text-align: center;
-}
-
-/* Night mountain background */
-body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    overflow: hidden;
+    position: relative;
     background: url('https://images.unsplash.com/photo-1602057512587-76d5cc4b34e2?q=80&w=872&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center;
     background-size: cover;
-    z-index: 0;
     filter: brightness(0.5);
 }
 
-/* Container for content above background */
+/* Stars container */
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.stars::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    box-shadow:
+        100px 200px white,
+        150px 80px white,
+        300px 150px white,
+        400px 300px white,
+        500px 50px white,
+        600px 220px white,
+        700px 100px white,
+        800px 250px white,
+        900px 180px white,
+        1000px 90px white;
+    animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; }
+}
+
+/* Shooting star effect */
+.shooting-star {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 2px;
+    height: 100px;
+    background: linear-gradient(white, transparent);
+    transform: rotate(45deg);
+    animation: shoot 2s linear infinite;
+    opacity: 0.8;
+}
+
+@keyframes shoot {
+    0% { transform: translate(-100px, 0) rotate(45deg); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translate(1200px, 600px) rotate(45deg); opacity: 0; }
+}
+
+/* Container for text */
 .container {
     position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
-/* Rainbow big header */
+/* Rainbow big header with animation */
 .rainbow {
-    font-size: 4rem; /* big size */
+    font-size: 4rem;
     font-weight: bold;
     background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+    background-size: 400%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    animation: rainbowMove 5s linear infinite;
     margin-bottom: 20px;
+}
+
+@keyframes rainbowMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 /* Small plain white intro text */
@@ -47,6 +105,5 @@ body::before {
     font-size: 1.2rem;
     color: white;
     max-width: 600px;
-    margin: 0 auto;
     line-height: 1.5;
 }
